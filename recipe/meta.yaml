@@ -1,5 +1,5 @@
 {% set name = "randomgen" %}
-{% set version = "1.18.1" %}
+{% set version = "1.19.2" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: 8e7811be98ffedea36789188612e3f70ffca7cdeab854bfdfea167e272fa5ff2
+  sha256: 8c69d5c5657d661ebc7e81f345b8a30e9ff3f939ecf0c566ad6512e36f0ccdae
 
 build:
   number: 0
@@ -17,7 +17,7 @@ requirements:
   build:
     - {{ compiler('c') }}
   host:
-    - cython >=0.26
+    - cython >=0.29
     - numpy
     - pip
     - python
@@ -29,20 +29,26 @@ requirements:
 test:
   imports:
     - randomgen
-    - randomgen.legacy
   requires:
     - pytest
-    - nose
   commands:
-    - python -m pytest -rs --pyargs randomgen.tests
+    - python -c "import randomgen;randomgen.test(['--skip-slow'])"
 
 about:
   home: "https://github.com/bashtage/randomgen"
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.md
-  summary: "Random generator supporting multiple PRNGs"
+  summary: 'Numpy-compatible bit generators and add some random variate distributions missing from NumPy.'
+  description: |
+    randomgen supplies many bit generators that can be used with numpy.random.Generator. It
+    also supports additional variants of the bit generators included in NumPy.
+  doc_url: https://bashtage.github.io/randomgen
+  dev_url: https://bashtage.github.io/randomgen/devel
+
 
 extra:
   recipe-maintainers:
     - duncanmmacleod
+    - bashtage
+
