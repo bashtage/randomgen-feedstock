@@ -11,7 +11,7 @@ source:
 
 build:
   error_overlinking: true
-  number: 0
+  number: 1
   script:
     - export PYTHONUNBUFFERED=1  # [ppc64le]
     # Cross-compilation stuff vendored from numpy-feedstock
